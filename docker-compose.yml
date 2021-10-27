@@ -1,20 +1,16 @@
-version: '3.9'
+version: '3.7'
 
 services:
-  database:
-    image: mongo
-    container_name: user-crud-mongo
+  mongo:
+    image: mongo:latest
+    container_name: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: user-crud
     ports:
-      - '27017:27017'
-    networks:
-      - nesjs-network
-    volumes:
-      - db_data:/data/db
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=development
 
   app:
     build: .
@@ -25,12 +21,7 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/app
-    networks:
-      - nesjs-network
-
-networks:
-  nesjs-network:
-    driver: bridge
-
-volumes:
-  db_data: {}
+    links:
+      - mongo
+    depends_on:
+      - mongo
