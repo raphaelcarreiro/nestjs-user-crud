@@ -12,7 +12,7 @@ export class CreateUserService {
   }
 
   async execute(payload: UserDTO) {
-    const user = this.repository.create(payload);
+    const user = await this.repository.create(payload);
     return user;
   }
 }

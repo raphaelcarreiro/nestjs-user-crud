@@ -11,7 +11,7 @@ export class UserRepository implements IUserRepository {
     //
   }
 
-  async all() {
+  async all(): Promise<User[]> {
     return await this.userModel.find().exec();
   }
 
@@ -26,11 +26,11 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(id: string, payload: UserDTO): Promise<User> {
-    this.userModel.updateOne({ _id: id }, payload);
+    await this.userModel.updateOne({ _id: id }, payload);
     return this.findById(id);
   }
 
   async delete(id: string): Promise<void> {
-    this.userModel.deleteOne({ _id: id }).exec();
+    await this.userModel.deleteOne({ _id: id }).exec();
   }
 }

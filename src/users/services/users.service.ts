@@ -19,11 +19,6 @@ export class UsersService {
     return user;
   }
 
-  async create(payload: UserDTO) {
-    const user = await this.userModel.create(payload);
-    return user;
-  }
-
   async update(id: string, payload: UserDTO): Promise<User> {
     this.userModel.updateOne({ _id: id }, payload);
     return this.getById(id);
