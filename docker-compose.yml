@@ -7,12 +7,14 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: user-crud
     ports:
       - '27017:27017'
+    networks:
+      - nesjs-network
     volumes:
-      - mongo-database:/data/db
+      - db_data:/data/db
 
   app:
     build: .
@@ -23,11 +25,12 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/app
-    links:
-      - database
-    depends_on:
-      - database
+    networks:
+      - nesjs-network
+
+networks:
+  nesjs-network:
+    driver: bridge
 
 volumes:
-  mongo-database:
-    external: true
+  db_data: {}

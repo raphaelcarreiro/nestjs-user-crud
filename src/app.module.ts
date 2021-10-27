@@ -3,6 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 
+console.log(process.env.MONGODB_USER);
+console.log(process.env.MONGODB_PASSWORD);
+console.log(process.env.MONGODB_HOST);
+console.log(process.env.MONGODB_DATABASE);
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
